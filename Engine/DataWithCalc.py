@@ -18,5 +18,8 @@ class Package(StoredObject):
     def get_data(self, key):
         pass
 
-    def add_calculation(self, calc_key, calculation, data_key):
+    def add_calculation(self, key, calculation):
+        pass
+    
+    def add_calculated_data(self, key, data):
         pass

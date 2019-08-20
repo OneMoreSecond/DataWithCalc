@@ -1,10 +1,21 @@
-from DataModules.Table.Table import Table
+from DataModules.Data import Data
 
-class TSV(Table):
-    def __init__(self, **kwargs):
+class TSV(Data):
+    def __init__(self, data, **kwargs):
         super().__init__(self, **kwargs)
-        self.header = None
-        self.contents = None
+        self.header, self.contents = None, [] if data is None else data
+
+    def get_suffix(self):
+        return '.tsv'
+        
+    def has_header(self):
+        return self.check_attribute('has_header')
+
+    def get_delimeter(self):
+        return self.get_attribute('delimeter', '\t')
+
+    def get_encoding(self):
+        return self.get_attribute('encoding', 'utf8')
 
     def load(self):
         delimeter = self.get_delimeter()
