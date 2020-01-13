@@ -1,22 +1,23 @@
 from DataModules.Data import Data
+from typing import Union
 import pandas as pd
 
 class DataFrame(Data):
-    def __init__(self, data=None, **kwargs):
+    def __init__(self, data: Union[pd.DataFrame] =None, **kwargs):
         super().__init__(self, **kwargs)
-        self.data = pd.DataFrame() if data is None else data
+        self.data: pd.DataFrame = pd.DataFrame()
 
-    def get_suffix(self):
+    def get_suffix(self) -> str:
         return '.' + self.get_store_format()
 
-    def get_store_format(self):
+    def get_store_format(self) -> str:
         return self.get_attribute('store_format', 'hdf')
 
-    def need_to_save_index(self):
+    def need_to_save_index(self) -> bool:
         return self.check_attribute('write_index')
 
-    def load(self):
-        store_format = self.get_store_format()
+    def load(self) -> None:
+        store_format: str = self.get_store_format()
 
         if store_format == 'hdf':
             self.data = pd.read_hdf(self.get_path(), 'df')
@@ -26,7 +27,7 @@ class DataFrame(Data):
             assert False
 
     def save(self):
-        store_format = self.get_store_format()
+        store_format: str = self.get_store_format()
 
         if store_format == 'hdf':
             self.data.to_hdf(self.get_path(), 'df')
@@ -35,5 +36,8 @@ class DataFrame(Data):
         else:
             assert False
 
-    def get_data(self):
+    def attach(self, data: pd.DataFrame) -> None:
+        self.data = data
+
+    def get_data(self) -> pd.DataFrame:
         return self.data

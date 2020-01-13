@@ -1,3 +1,5 @@
+from typing import Dict, List
+
 from Engine.Object import StoredObject
 from DataModules.Data import Data
 from CalculationModules.Calculation import Calculation
@@ -5,21 +7,21 @@ from CalculationModules.Calculation import Calculation
 class Package(StoredObject):
     def __init__(self, **kwargs):
         super().__init__(self, **kwargs)
-        self.data = dict()
-        self.calculations = dict()
-        self.topo_order = []
+        self.data: Dict[str, Data] = dict()
+        self.calculations: Dict[str, Calculation] = dict()
+        self.topo_order: List[str] = []
 
-    def load(self):
+    def load(self) -> None:
         pass
 
-    def save(self):
+    def save(self) -> None:
         pass
 
-    def get_data(self, key):
+    def get_data(self, key) -> Data:
         pass
 
-    def add_calculation(self, key, calculation):
+    def add_calculation(self, key, calculation) -> None:
         pass
     
-    def add_calculated_data(self, key, data):
+    def add_calculated_data(self, key, data) -> None:
         pass

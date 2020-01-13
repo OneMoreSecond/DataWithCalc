@@ -1,17 +1,21 @@
+from typing import Any
 import pickle
 
 from DataModules.Data import Data
 
 class Pickle(Data):
-    def __init__(self, data, **kwargs):
+    def __init__(self, **kwargs):
         super().__init__(self, **kwargs)
-        self.data = None if data is None else data
+        self.data: Any = None
 
-    def load(self):
+    def load(self) -> None:
         self.data = pickle.load(self.get_path())
 
-    def save(self):
+    def save(self) -> None:
         pickle.dump(self.data, self.get_path())
 
-    def get_data(self):
+    def attach(self, data: Any) -> None:
+        self.data = data
+
+    def get_data(self) -> Any:
         return self.data
